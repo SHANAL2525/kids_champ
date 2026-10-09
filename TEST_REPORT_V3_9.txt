@@ -1,0 +1,26 @@
+Kids Champ Artwork Generator V3.9 — Three Template Auto Test
+
+Core checks completed in build environment:
+- Python compile: PASS
+- Default templates loaded: Portrait / Landscape / Square: PASS
+- Active template persistence keys for all three: PASS
+- Exact Square master SHA-256 equals uploaded sq.png: PASS
+- Auto classifier supports Square: PASS
+- 250-image test batch classification: Portrait 129 / Square 22 / Landscape 99
+- Full-quality render Portrait: 1672x941 PASS
+- Full-quality render Landscape: 1672x941 PASS
+- Full-quality render Square: 1672x941 PASS
+- Generator code includes Auto / Portrait / Landscape / Square: PASS
+- Compare code includes Auto / Portrait / Landscape / Square: PASS
+- Batch row template dropdown includes Square: PASS
+- Template Settings custom type includes Square: PASS
+- Locked Square default is protected by the same default/locked rules: PASS
+
+Square default placement used in this test build:
+- Artwork box: x=240, y=240, w=430, h=326
+- Name box: x=245, y=588, w=420, h=40
+- Location box: x=250, y=636, w=410, h=34
+These placement values remain editable through Template Settings if the office wants small alignment tuning; the locked master image itself is not changed.
+
+UI runtime note:
+- The container used for packaging does not have PySide6 installed, so actual Windows mouse/UI interaction must be tested on the user's Windows machine.

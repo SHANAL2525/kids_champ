@@ -1,0 +1,15 @@
+V4.1 test report
+
+PASS
+- Python syntax compile for all app modules and main.py.
+- 250-image ZIP parses successfully.
+- First 30 batch artworks render as previews without exceptions.
+- Manual source rotation + Crop + Wrap + Stretch pipeline renders a 1672x941 final output.
+- Neutral color test confirms None/0/0 preserves RGB bytes at the color stage.
+- Locked Portrait/Landscape/Square template files have the same SHA-256 hashes as V4.0.
+
+NOT TESTED IN THIS CONTAINER
+- Actual PySide6 mouse/GUI interaction, because PySide6 is not installed in the container runtime.
+- Full 250-image preview render run exceeded the container time limit; Download All remains background-threaded in the app.
+
+This is a development/test build, not a final release.

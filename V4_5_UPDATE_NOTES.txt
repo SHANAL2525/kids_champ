@@ -1,0 +1,21 @@
+Kids Champ Artwork Generator V4.5 Auto V3
+=========================================
+
+1. Replaced conservative Auto V2 routing with a shared two-stage Auto V3 geometry pipeline.
+2. Detects and perspective-corrects photographed paper when confidence is sufficient.
+3. Adds a connected light-sheet fallback for paper on dark tables/floors and edge-touching pages.
+4. Estimates paper colour from inset corners instead of assuming RGB white.
+5. Detects colour, graphite and faint crayon strokes under uneven lighting.
+6. Removes unnecessary blank paper/photo margins with 5% artwork safety padding.
+7. Routes Portrait/Landscape/Square from cleaned content geometry (0.83-1.20 is Square).
+8. Smart placement uses proportional min-scale: no stretching and no automatic artwork cutting.
+9. Unused frame bands use estimated paper colour, avoiding black/transparent bars around artwork.
+10. Batch analysis and output rendering use bounded parallel workers.
+11. PNG/TIFF output transparency for the separate video-editor opening remains unchanged.
+
+Real batch verification: WEEK_36_RENAMED_ID_NAME_CITY.zip
+- 250/250 images loaded Ready.
+- Routes: Portrait 133, Landscape 92, Square 25.
+- Auto geometry changed 125 images (Auto V2 changed 51 in the same audit).
+- 250/250 generated PNGs: 1672x941 RGBA, alpha range 0-255, transparent video point alpha 0.
+- ZIP load/analysis: 28.18 seconds; 250 PNG generation: 122.11 seconds on this machine.

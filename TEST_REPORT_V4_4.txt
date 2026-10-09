@@ -1,0 +1,31 @@
+Kids Champ Artwork Generator V4.4 Auto V2 - Final Verification
+
+PASS
+- Python AST parse: main.py, 23 app modules and automated tests.
+- Automated unittest suite: 13/13 passed.
+- Auto V2: raw/page/foreground routing and square-camera portrait override.
+- ZIP safety: path traversal and pre-extraction batch limit rejection.
+- Valid ZIP: transactional extraction, filename parsing and folder preservation.
+- Template persistence: custom TIFF upload, active Portrait radio selection and locked-master edits survive reload.
+- Portrait/Landscape/Square full render: 1672x941 RGBA.
+- Right-side video opening: alpha 0 after all three renders.
+- PNG export: alpha preserved.
+- TIFF export: alpha preserved.
+- Sample_Batch_V3.zip: 5/5 loaded and routed; 5 PNG + 5 TIFF outputs generated successfully.
+- GUI offscreen smoke: three pages, three active template types, PNG default and clean shutdown.
+- Nuitka 4.1.3 standalone build: successful.
+- Compiled KidsChamp.exe startup: successful.
+- Inno Setup 6.7.3 installer compile: successful.
+- Isolated silent install -> installed-app launch -> silent uninstall: successful; no test folder remained.
+
+FINAL ARTIFACTS
+- build_nuitka/main.dist/KidsChamp.exe
+  Version: 4.4.0.0
+  SHA-256: 2953FDE38D70E22664E2B2A4F96DC60197DF2C13E77A9EA58F84B4D5E5FA5481
+- installer_output/KidsChamp_Setup_V4_4.exe
+  Version: 4.4
+  SHA-256: B7E6CA2683E660CD85C013749C4CD11178FC0333C69BFD149509C550E6617E7E
+
+KNOWN RELEASE NOTE
+- The EXE and installer are not digitally signed because no code-signing certificate was supplied.
+  Windows SmartScreen may therefore show an unknown-publisher warning.

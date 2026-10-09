@@ -1,0 +1,14 @@
+Kids Champ Artwork Generator V4.8 Auto V4
+
+1. Square artwork continues to use the active Square master; Portrait, Landscape
+   and Square selections stay independent and persistent.
+2. Smart placement now follows the measured admin workflow: after safe cleanup,
+   the complete artwork is stretched independently in X/Y to the exact frame.
+3. Smart no longer performs a second proportional Fill Frame crop, so important
+   top, bottom and side drawing content is retained.
+4. The light-sheet fallback now requires light/low-chroma paper plus a visibly
+   different outside background. Bright sky, sand or coloured artwork bands are
+   no longer accepted as a sheet merely because they form a large region.
+5. Manual Full Artwork, Fill Frame and Photoshop-style Free Transform remain
+   available for exceptional images.
+6. PNG/TIFF alpha and the transparent video opening are unchanged.

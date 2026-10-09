@@ -1,0 +1,20 @@
+Kids Champ Artwork Generator V3.5 Smart Auto Adjust Test
+
+Main updates included:
+1. Auto paper detect / auto crop / auto perspective straighten
+2. Better auto layout detect (uses detected paper, not only original photo size)
+3. Auto image cleanup before rendering
+4. Brightness and Contrast sliders in Compare
+5. ACV preset support in Compare (1.ACV to 8.ACV included in /presets)
+6. Compare Save / Apply All now also saves auto detect + tone + preset settings
+7. Batch Preview table:
+   - double click row -> open Compare
+   - Up / Down arrow keys move between rows and preview the selected artwork
+8. Preview cache updated for new adjustment values
+9. Requirements updated: numpy + opencv-python
+10. Version title updated to V3.5 Smart Auto Adjust Test
+
+Install libraries:
+py -m pip install -r requirements.txt
+
+If OpenCV is not installed, the app still runs, but Auto paper detect will not work.

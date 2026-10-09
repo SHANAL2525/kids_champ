@@ -1,0 +1,20 @@
+Kids Champ Artwork Generator V4.3 Correct Text / Pin / Square Full Test
+
+Fixes in this build:
+1. Replaced the old location-pin asset with a transparent high-resolution asset derived from the user's newly supplied red location icon.
+2. Location pin is composited explicitly (not via Pillow private draw internals).
+3. Name and Location now use safe inner padding + auto-fit text to prevent clipping/cutting and keep long labels readable.
+4. Square template geometry retuned to the exact sq.png artwork window and lower label strip:
+   artwork box: 239,238,422,322
+   name box:    246,582,412,40
+   city box:    252,627,400,36
+5. Square name/location font and pin sizing tuned for the compact label strip.
+6. Portrait, Landscape and Square template types, active-template logic, Auto routing, Compare source editing, Crop, Wrap, Stretch, presets and batch tools are preserved from V4.2.
+7. Locked template graphics were not redrawn/recolored by this update.
+
+Tests performed:
+- Python compile: PASS
+- 250-file batch load and route classification: PASS (132 Portrait / 106 Landscape / 12 Square)
+- 12 mixed preview renders: PASS
+- Full 1672x941 render: Portrait / Landscape / Square PASS
+- Long label test (THIMANDEE SEYANSA / THISSAMAHARAMAYA): PASS in all three template modes

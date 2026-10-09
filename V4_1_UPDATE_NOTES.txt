@@ -1,0 +1,26 @@
+Kids Champ Artwork Generator V4.1 Direct Source Editor Test
+
+FOCUS
+- Remove the per-image Edit-button gate. Compare tools are ready immediately.
+- Make RIGHT side the current Editable Source; Org Img shows the untouched upload.
+- Add Stretch / Push-Pull (the requested "Scratch"-style local reshape tool).
+- Keep Crop, Wrap and Stretch as separate dedicated source tools.
+- Keep the LEFT side as template placement only.
+
+UPDATES
+1. No Edit button in Compare. Tools enable automatically when an image is loaded.
+2. Editable Source tools: Org Img, Crop, Wrap, Stretch/Push-Pull, Undo, Redo, Reset.
+3. Stretch / Push-Pull uses local non-destructive strokes. Brush size and strength controls included.
+4. Undo/Redo history keeps up to 20 edit states (more than the requested 5-6 steps).
+5. Org Img is read-only and shows the untouched uploaded image.
+6. Manual rotation is now part of the source pipeline, so Editable Source rotates with the final output.
+7. Existing Crop/Wrap coordinates are transformed when rotating 90 degrees instead of silently becoming invalid.
+8. Source-editor mouse-wheel zoom is visual-only and persists while switching Crop/Wrap/Stretch tools.
+9. Neutral color is truly neutral: None preset + Brightness 0 + Contrast 0 no longer runs hidden autocontrast.
+10. Safe Auto cropping is more conservative. Low-confidence candidates preserve the full artwork.
+11. A plausible detected paper ratio may still help Auto choose Portrait/Landscape/Square even when cropping is rejected for safety.
+12. Portrait, Landscape and Square locked master template files were not changed.
+
+IMPORTANT
+- Stretch/Push-Pull is intended for small difficult edge/white-space corrections, not heavy artwork redesign.
+- Training/learning from admin corrections is NOT enabled in this test build. That should be an explicit future opt-in workflow, not silent data collection.

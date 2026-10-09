@@ -1,0 +1,10 @@
+Kids Champ Artwork Generator V5.0
+=================================
+
+- Compare now initially displays the child's complete untouched upload in the
+  right-side Original / Editable Source panel.
+- Selecting a source editing tool switches the right panel to the editable
+  source and keeps the existing editing workflow unchanged.
+- Removed the helper text below the right-side image to increase usable editing
+  space on tablet and desktop screen sizes.
+- Installer output preserves previous setup versions in installer_output.

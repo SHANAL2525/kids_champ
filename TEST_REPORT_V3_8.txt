@@ -1,0 +1,25 @@
+Kids Champ Artwork Generator V3.8 — Test Report
+
+Passed in build environment:
+- Python syntax/compile: PASS
+- 250-image ZIP ingestion core: PASS
+- Multiple async-preview render targets via core preview renderer: PASS
+- Cached preview path: PASS
+- Manual Crop geometry render: PASS
+- Manual 4-corner Wrap/Perspective render: PASS
+- ACV preset path: PASS
+- Full final output size: 1672 x 941 PASS
+- Locked Portrait/Landscape template + overlay SHA-256 unchanged from V3.7: PASS
+- 8 ACV presets present: PASS
+
+Performance architecture checks implemented:
+- UI preview work moved to background QRunnable/QThreadPool workers.
+- One active + one latest pending preview request per Generator/Compare page.
+- Stale preview results ignored.
+- Crop/Wrap drag does not request heavy rendering until commit/mouse release.
+- ZIP loading runs in QThread.
+- Search/type/status filters hide/show existing table rows rather than rebuilding them.
+- Full-size geometry is not retained in the preview cache during Download All.
+
+Limitation of this build environment:
+PySide6 is not installed in the container, so actual Windows mouse/keyboard GUI interaction could not be executed here. Windows UI behavior still needs the user's real-PC test. This remains a development/test build.

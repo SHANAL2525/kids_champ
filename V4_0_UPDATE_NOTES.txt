@@ -1,0 +1,40 @@
+Kids Champ Artwork Generator V4.0 Safe Source Crop Wrap Test
+
+FOCUS: fix Crop/Wrap architecture and protect child artwork from aggressive Auto crop.
+
+1. RIGHT source editor only:
+   - Crop works on original uploaded student image.
+   - Wrap works on the cropped student image.
+   - Template/background is never Crop/Wrap geometry.
+
+2. Manual Crop:
+   - Blue keep-box with 8 handles.
+   - Inside = keep. Outside = remove.
+   - Crop commit resets old Wrap coordinates because the source dimensions changed.
+
+3. Manual Wrap:
+   - Four independent purple points start at the four corners of the CROPPED student artwork.
+   - Points select source artwork corners, not template corners.
+   - Renderer maps that quadrilateral to the active template artwork-frame aspect ratio.
+   - This removes leftover white frame-space after manual crop without modifying the locked template.
+
+4. LEFT final preview:
+   - Move / Zoom / Fit / Fill / rotation placement only.
+   - No Crop/Wrap handles on the template preview.
+
+5. Safe Auto:
+   - Conservative page/background detection.
+   - High-confidence page-like rectangle required.
+   - Safety padding around detected page.
+   - Low confidence = preserve COMPLETE original + no destructive crop.
+   - Auto no longer prefers small inner drawing rectangles.
+
+6. Existing V3.9 features retained:
+   - Portrait / Landscape / Square locked masters.
+   - Active template selection.
+   - 8 ACV presets.
+   - Compare / Generator / Template Settings.
+   - background preview rendering / caching / full-quality download.
+   - batch row edit and other workflow features.
+
+No new Python libraries are required beyond the existing requirements.txt.

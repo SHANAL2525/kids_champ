@@ -1,0 +1,36 @@
+Kids Champ Artwork Generator V3.8 Performance & Stability Test
+
+NO NEW WORKFLOW FEATURES were intentionally added. V3.8 focuses on removing lag/freezes while keeping V3.7 behavior.
+
+Performance/stability changes:
+- Background async preview rendering in Generator and Compare.
+- Two-thread bounded preview pool to prevent CPU flooding.
+- Stale preview jobs are ignored after navigation/new edits.
+- Crop/Wrap handle drag no longer triggers full render on every mouse movement.
+- Heavy preview render occurs after Crop/Wrap mouse release.
+- Move/Zoom/tone changes are debounced.
+- Cached source decoding and cached Crop/Wrap geometry stages.
+- Auto paper detection runs on a bounded copy for speed.
+- Preview source is bounded; Download All stays full quality.
+- Batch load uses fast image orientation instead of OpenCV paper detection for every file.
+- Compare Save can refresh one table row instead of rebuilding all 250.
+- Preview caches are size-limited.
+
+Locked templates unchanged:
+- Portrait large frame: white.
+- Portrait small right box: black.
+- Latest Landscape master unchanged.
+- Defaults remain undeletable.
+
+Testing in build environment:
+- Python compile test passed.
+- 250-file ZIP ingestion tested.
+- Preview render tested on multiple files.
+- Cached preview render tested.
+- Manual Crop + 4-corner Wrap preview/full render tested.
+- Full render remains 1672 x 941.
+
+Additional V3.8 responsiveness work:
+- ZIP extraction/parsing runs in a QThread so loading a 250-image ZIP does not freeze the window.
+- Search/type/status filtering hides/shows existing rows instead of rebuilding 250 row widgets every time.
+- Preview scheduler keeps at most one active + one newest pending request per page, preventing render-job queue flooding during rapid editing/navigation.

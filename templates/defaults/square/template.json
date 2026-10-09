@@ -1,0 +1,37 @@
+{
+  "id": "square",
+  "name": "Kids Champ Square Master",
+  "type": "Square",
+  "group": "Defaults",
+  "group_color": "Blue",
+  "template_image": "template.png",
+  "overlay_image": "overlay.png",
+  "thumbnail_image": "thumbnail.png",
+  "artwork_box": {
+    "x": 226,
+    "y": 225,
+    "width": 455,
+    "height": 470
+  },
+  "name_box": {
+    "x": 238,
+    "y": 773,
+    "width": 412,
+    "height": 40
+  },
+  "city_box": {
+    "x": 244,
+    "y": 823,
+    "width": 400,
+    "height": 36
+  },
+  "name_font_size": 28,
+  "city_font_size": 21,
+  "text_color": "#10344B",
+  "show_location_pin": true,
+  "location_pin_size": 22,
+  "location_pin_gap": 9,
+  "artwork_fit_mode": "Smart",
+  "is_default": true,
+  "locked": true
+}

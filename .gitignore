@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.buildvenv/
+.codex_tif_previews/
+.diagnostics_*/
+build/
+dist/
+build_nuitka/
+build_nuitka_*/
+build_pyinstaller_*/
+installer_output/
+app_data/settings.json
+nuitka-crash-report.xml
+KidsChamp.spec
+/*.png
+*.tmp

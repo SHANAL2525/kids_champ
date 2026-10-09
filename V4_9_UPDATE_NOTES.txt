@@ -1,0 +1,13 @@
+Kids Champ Artwork Generator V4.9 Auto V4
+
+1. Enter and keypad Enter now save the current Compare edit.
+2. Rotate Left/Right rotates only the artwork inside its existing template.
+   Auto Portrait/Landscape/Square routing no longer changes after rotation.
+3. Click the artwork inside the left final/template preview to select it for
+   Photoshop-style Free Transform.
+4. Left-side transform supports move, scale, side stretch, corner transform,
+   rotate handle and Ctrl/Shift/Alt modifiers already used by Free Transform.
+5. Heavy preview work is throttled and bounded while handle movement remains
+   lightweight, improving smoothness on large images and batches.
+6. All V4.8 Auto V4 cleanup, Square routing, transparent PNG/TIFF export and
+   locked template behavior remain unchanged.

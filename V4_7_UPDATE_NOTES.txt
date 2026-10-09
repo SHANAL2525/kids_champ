@@ -1,0 +1,19 @@
+Kids Champ Artwork Generator V4.7 Auto V3 + Free Transform
+
+1. Added Photoshop-style Free Transform to Source tools.
+2. Ctrl+T activates Free Transform; W keeps quick access to legacy Wrap.
+3. Drag inside to move; side handles stretch width/height; corner handles scale.
+4. Shift unlocks corner proportions and snaps rotation to 15 degrees.
+5. Alt transforms from the centre; Ctrl+corner distorts; Ctrl+Shift+side skews;
+   Ctrl+Alt+Shift+corner provides a perspective gesture.
+6. Enter applies, Esc cancels the current transform session, Ctrl+0 resets it.
+7. Arrow keys nudge during Transform; Shift+Arrow performs a larger nudge.
+8. Free Transform persists per artwork, supports Undo/Redo and Apply All, and is
+   rendered at full resolution for PNG/TIFF output.
+9. Transform preview uses a bounded proxy and background final preview, avoiding
+   full-resolution work during every mouse movement.
+10. Original uploads remain untouched; transformed artwork is clipped to the locked
+    template frame and the separate transparent video opening remains transparent.
+
+Verification: 20 automated tests, mouse gesture tests, compile check, and offscreen
+GUI transform session tests passed before packaging.

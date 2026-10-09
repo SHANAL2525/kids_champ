@@ -1,0 +1,23 @@
+Kids Champ Artwork Generator V3.9 — Three Template Auto Test
+
+Main update
+- Three production template types are now supported everywhere: Portrait, Landscape, Square.
+- New Square locked master is the exact supplied sq.png.
+- Generator: Auto / Portrait / Landscape / Square buttons.
+- Compare: Auto / Portrait / Landscape / Square quick template buttons.
+- Batch row editor: Square option added.
+- Type filter: Square added.
+- Template Settings: Square custom type + active radio selection.
+- Active Portrait / Landscape / Square choices are saved separately.
+- Locked Square default cannot be deleted.
+- Auto classification routes near-square artwork to Square.
+- Existing V3.8 performance/no-lag architecture is preserved.
+
+Auto Square threshold
+- width/height ratio 0.85 to 1.18 -> Square
+- taller -> Portrait
+- wider -> Landscape
+
+Locked master rule
+- Portrait, Landscape and Square master graphics must not be recreated/recolored/changed.
+- Crop/Wrap/Color/Fit/Zoom/Move apply only to student artwork.

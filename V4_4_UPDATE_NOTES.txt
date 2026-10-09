@@ -1,0 +1,20 @@
+Kids Champ Artwork Generator V4.4 Auto V2 / Transparent Export
+
+Major updates
+1. Default batch output is RGBA PNG. Optional TIFF output preserves alpha.
+2. The right-side video opening stays transparent for later video-editor compositing.
+3. Correct supplied Portrait, Landscape and Square production masters are installed.
+4. Auto V2 combines raw orientation, page geometry and dominant foreground evidence.
+5. Auto routing exposes a confidence percentage and flags low-confidence rows for checking.
+6. Smart Fit checks important foreground bounds before allowing a Fill Frame crop.
+7. Template cards have a clear left-side radio selector; one active template persists per type.
+8. Locked defaults cannot be deleted but approved box/text/image edits can be saved.
+9. Atomic settings/template writes prevent restart-time rollback after interrupted saves.
+10. ZIP validation blocks path traversal, excessive counts/sizes and suspicious compression ratios.
+11. Batch load/export workers support cooperative cancellation and safe application shutdown.
+12. Runtime and build dependencies are pinned; executable/installer metadata is V4.4.
+13. Automated regression tests cover routing, ZIP security, persistence and alpha export.
+
+Layer order
+Student artwork -> selected artwork box -> master graphics -> name/location/pin.
+The video opening is never filled by Kids Champ and remains alpha-transparent.

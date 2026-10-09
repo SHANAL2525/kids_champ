@@ -1,0 +1,23 @@
+Kids Champ Artwork Generator V3.4 Compare Editor Test
+=======================================================
+
+Development build. Not a published release.
+
+Static/core checks completed in the build environment:
+- All Python files compile successfully.
+- 250-image real batch parses successfully.
+- Relative upload folder paths are stored on BatchItem.
+- Smart Fit renders portrait and landscape sample artworks.
+- Per-image Fill Frame + zoom + pan + 90-degree rotation renders successfully.
+- Final render canvas remains 1672 x 941 for tested defaults.
+- Compare tool SVG assets are packaged.
+- Generator code preserves source extension and source-relative folders when generating.
+
+Windows UI interactions require testing on the office Windows PC:
+- Compare header button
+- Generator preview Compare button
+- mouse-wheel zoom / drag pan
+- Save one artwork
+- Apply All
+- row edit click-outside
+- Download ZIP directory layout and formats

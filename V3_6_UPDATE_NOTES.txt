@@ -1,0 +1,29 @@
+Kids Champ Artwork Generator V3.6 Manual Crop / Wrap + White Portrait Frame Test
+
+Main changes
+- Correct Kids Champ Portrait white inner frame restored from supplied production TIF.
+- Compare quick template selector (Auto / Portrait / Landscape) works even before Edit.
+- Compare Edit button moved to the left, above Final Template Preview.
+- Apply All and Save moved under Final Template Preview.
+- Presets 1-8 changed from a dropdown to radio-button selection.
+- Real manual Crop tool: original image shows a crop border, 8 mouse handles, and darkened outside area. Drag corners/edges or drag inside to move the crop.
+- Real manual Perspective/Wrap tool: original image shows 4 purple draggable corners; renderer uses OpenCV perspective transform.
+- Ctrl+T enters Wrap/Perspective mode.
+- Manual Crop and Wrap are per-image overrides and do not change Template Settings.
+- Batch Preview edit rows now save on a click outside and immediately return to normal text display.
+- Batch row double-click still opens that exact artwork in Compare.
+- Auto paper detection remains the default; manual Crop/Wrap automatically takes control when Auto is wrong.
+- 8 ACV presets remain included.
+
+Workflow
+1. Upload ZIP -> Auto handles most images.
+2. Double-click a bad row -> Compare.
+3. Click Edit.
+4. Crop or Wrap on Original/Edit Source while watching Final Template Preview update.
+5. Save only this image, or Apply All when appropriate.
+
+Dependencies
+PySide6-Essentials
+Pillow
+numpy
+opencv-python

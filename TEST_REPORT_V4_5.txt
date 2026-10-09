@@ -1,0 +1,26 @@
+Kids Champ Artwork Generator V4.5 Auto V3 - Verification
+========================================================
+
+PASS - Python compileall for app and tests.
+PASS - 15/15 automated tests.
+PASS - Synthetic faint-content/blank-margin crop.
+PASS - Synthetic dark-table/light-sheet isolation.
+PASS - Square camera canvas containing a portrait page routes Portrait.
+PASS - Real 250-image WEEK 36 ZIP: 250 Ready, 0 parse/render failures.
+PASS - Real 250-image final PNG generation and ZIP packaging.
+PASS - All outputs 1672x941 RGBA with alpha extrema 0-255.
+PASS - All 250 outputs retain alpha 0 at the video opening test point.
+PASS - Visual audit of 10 input geometry sheets and 10 final-output sheets.
+PASS - GUI offscreen startup: Kids Champ Artwork Generator V4.5 Auto V3.
+PASS - Nuitka standalone build, metadata 4.5.0.0, compiled-app startup.
+PASS - Inno Setup V4.5 installer build, isolated silent install/start/uninstall.
+
+Performance on validation machine:
+- 250-image ZIP load + Auto V3 route: 28.18 seconds.
+- 250 full-quality PNG output generation: 122.11 seconds.
+
+Release artifacts:
+- installer_output/KidsChamp_Setup_V4_5.exe (68.57 MB)
+  SHA256: 0ECBA77D6EC4EFC16A873E4283B48620AE2DD88BC541B0E28691BBE4FBAACAC2
+- build_nuitka/main.dist/KidsChamp.exe (29.99 MB)
+  SHA256: DC96E1C2C0B0F57E5196D1622F6E70C3FFFC48A43294A708859459B0ECD1D7B2

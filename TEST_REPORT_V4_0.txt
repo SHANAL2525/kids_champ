@@ -1,0 +1,18 @@
+Kids Champ Artwork Generator V4.0 - Core Test Report
+
+Tests run in the build environment:
+
+PASS - Python syntax compile for all app modules and main.py.
+PASS - Loaded the real 250-image WEEK 35 batch.
+PASS - Three-way initial classification: Portrait 129 / Landscape 99 / Square 22.
+PASS - Portrait, Landscape and Square preview rendering.
+PASS - Manual source Crop -> Wrap -> locked-template render at full 1672 x 941 output.
+PASS - Manual Wrap target-aspect mapping removes template-frame white gap in core render test.
+PASS - Safe Auto tested on the real batch: conservative detector preserves originals when confidence is low.
+PASS - Safe Auto visual contact-sheet review on detected examples showed page/background cleanup without obvious artwork clipping in the reviewed sample.
+PASS - V3.9 -> V4.0 locked Portrait/Landscape/Square template PNG files were copied unchanged (matching SHA-256 for each master; Portrait/Landscape overlays unchanged too).
+
+Important environment limitation:
+PySide6 is not installed in this Linux build container, so actual Windows mouse interaction cannot be clicked here. Crop/Wrap UI source compiles successfully, but the admin should test the right-side 8-handle Crop and 4-corner Wrap on Windows before treating this as a release.
+
+V4.0 is TEST/DEVELOPMENT, not a final published release.

@@ -1,0 +1,56 @@
+Kids Champ Artwork Generator V3.7 — Synced Crop/Wrap + Active Templates Test
+
+LOCKED PRODUCTION TEMPLATE RULE
+- Portrait locked production design: large artwork frame is WHITE; right-side small box is BLACK.
+- Landscape locked production design is preserved.
+- Exact user-supplied PNG/TIF masters are stored under each default template's master/ folder and are not rewritten.
+- Runtime crop/wrap/color/fit edits affect CHILD ARTWORK ONLY, never the template graphics.
+
+COMPARE / MANUAL EDIT
+- Crop is a dedicated 8-handle keep-area tool. Rejected/outside area is dimmed and removed from final processing.
+- Wrap/Perspective is a dedicated four-independent-corner tool.
+- Crop and Wrap are synchronized on BOTH sides:
+    Left  = Final Template Preview
+    Right = Original / Edit Source
+  Dragging either side updates the same per-image crop/wrap values and refreshes both sides.
+- Crop happens first, Wrap happens second.
+- Move is a separate tool; Crop/Wrap no longer silently behave like Move.
+- Ctrl+T opens Wrap/Perspective.
+- Left Arrow = Previous and Right Arrow = Next while inspecting (not editing).
+- During Edit + Move mode, arrow keys nudge artwork; Shift+Arrow uses a larger nudge.
+- Apply All and Save remain directly under the final output preview.
+- Auto / Portrait / Landscape can be changed without first enabling Edit.
+- 8 supplied Photoshop ACV presets remain radio-button choices.
+
+BATCH PREVIEW
+- Inline row editor auto-saves when clicking outside the row.
+- IMPORTANT FIX: old QLineEdit/QComboBox cell widgets are explicitly removed after save/cancel, so the row returns to normal plain-text style.
+- Enter saves; Escape cancels.
+- Double-click a row to open that image in Compare.
+
+TEMPLATE SETTINGS
+- Added active-template radio marker (● active / ○ inactive) to Saved Templates.
+- Click the radio-marker area to make a template active WITHOUT entering Edit mode.
+- Portrait and Landscape keep separate active-template selections.
+- Active template choice persists across app restarts.
+- Locked default Portrait/Landscape remain undeletable safe fallbacks, but they are NOT forced to be active every time.
+- Custom templates can be made active, moved, renamed, duplicated, and deleted.
+- If an active custom template is deleted, the matching locked default automatically becomes the fallback.
+
+COLOR / LOCATION
+- All 8 ACV presets remain included.
+- Runtime location pin uses the exact pin artwork extracted from the locked production master, with a safe code fallback.
+
+DEPENDENCIES
+- PySide6-Essentials
+- Pillow
+- NumPy
+- opencv-python
+
+Install/update:
+  py -m pip install -r requirements.txt
+
+Run:
+  py main.py
+
+This remains a TEST/DEVELOPMENT build until office testing is complete.

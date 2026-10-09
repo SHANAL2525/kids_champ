@@ -1,0 +1,15 @@
+Kids Champ Artwork Generator V4.6 Auto V3
+
+1. Restored the clear Compare workflow: RIGHT is the original/editable source and
+   LEFT is the live framed result.
+2. Crop and Wrap changes now refresh the left framed preview while editing and
+   immediately on mouse release.
+3. Smart placement now fills the complete artwork frame after Auto V3 removes
+   outside paper/photo space.
+4. Smart/Fill Frame clamps zoom-out and pan so no blank or transparent band can
+   enter the artwork frame.
+5. Fit Full Artwork remains available as an explicit admin choice when preserving
+   every source edge matters more than filling the frame.
+6. Original uploaded files remain untouched; edits are non-destructive.
+
+Verification: 17 automated tests, compile check, and GUI startup check passed.

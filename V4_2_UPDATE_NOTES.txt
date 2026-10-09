@@ -1,0 +1,32 @@
+Kids Champ Artwork Generator V4.2 - Correct Auto Routing Full Test
+
+Main fix in this version
+- Auto template routing no longer trusts the raw phone-photo ratio by itself.
+- Routing analyses the real artwork/paper region first, but does NOT crop the source just to choose a template.
+- Near-square phone photos that contain a clearly portrait drawing can now route to Portrait instead of Square.
+- Weak detections never change the template type.
+- Crop/Wrap/Stretch preprocessing can no longer silently switch the selected production template.
+- Manual Portrait/Landscape/Square always overrides Auto.
+- A 90 degree source rotation swaps Portrait/Landscape in Auto; Square stays Square.
+- Batch Preview now shows Auto -> Portrait / Auto -> Landscape / Auto -> Square so the admin can see the actual route.
+- Compare also displays the current Auto route next to the template buttons.
+
+Production templates
+- Portrait: latest approved white large artwork frame + black small right box.
+- Landscape: latest approved production frame.
+- Square: sq.png production template.
+- Locked defaults remain undeletable.
+- Exact uploaded master reference PNGs are stored under each default template's master folder for restore/audit.
+
+All V4.1 editor features are retained:
+- Direct edit workflow (no Edit button required)
+- Crop, Wrap, Stretch/Push-Pull
+- Undo/Redo
+- Original image toggle
+- Move/Zoom/Rotate/Fit controls
+- 8 ACV presets
+- Active template selection
+- Portrait/Landscape/Square support
+- Batch ZIP generation and folder preservation
+
+This is still a development/test build.
