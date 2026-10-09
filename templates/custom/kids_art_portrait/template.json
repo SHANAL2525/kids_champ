@@ -1,0 +1,22 @@
+{
+  "id": "kids_art_portrait",
+  "name": "Kids Art Frame Portrait",
+  "type": "Portrait",
+  "group": "Kids Art Frames",
+  "group_color": "Blue",
+  "template_image": "template.png",
+  "thumbnail_image": "thumbnail.png",
+  "artwork_box": {"x": 447, "y": 84, "width": 477, "height": 696},
+  "name_box": {"x": 1032, "y": 457, "width": 379, "height": 138},
+  "city_box": {"x": 1032, "y": 585, "width": 379, "height": 70},
+  "name_font_size": 48,
+  "name_max_lines": 2,
+  "city_font_size": 30,
+  "text_color": "#10344B",
+  "show_location_pin": true,
+  "location_pin_size": 30,
+  "location_pin_gap": 8,
+  "artwork_fit_mode": "Smart",
+  "is_default": false,
+  "locked": false
+}
