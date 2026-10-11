@@ -107,6 +107,7 @@ def _record_from_json(path: Path) -> TemplateRecord | None:
         artwork_fit_mode=data.get("artwork_fit_mode", "Fill Frame"),
         is_default=is_default,
         locked=bool(data.get("locked", False)),
+        artwork_under_template=bool(data.get("artwork_under_template", False)),
     )
 
 
@@ -244,6 +245,7 @@ def save_record(record: TemplateRecord) -> None:
         "artwork_fit_mode": record.artwork_fit_mode,
         "is_default": record.is_default,
         "locked": record.locked,
+        "artwork_under_template": record.artwork_under_template,
     }
     _atomic_write_json(record.json_path, data)
     invalidate_cache()

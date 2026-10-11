@@ -297,19 +297,28 @@ def _place_free_transform(base: Image.Image, artwork: Image.Image, box: Box, qua
     points = normalize_transform_quad(quad)
     if points is None or cv2 is None or np is None:
         return False
-    source = np.asarray(artwork.convert("RGBA"))
+    source = np.asarray(artwork.convert("RGBA"), dtype=np.float32)
     ah, aw = source.shape[:2]
     if aw < 1 or ah < 1:
         return False
     src = np.float32(((0, 0), (max(0, aw - 1), 0), (max(0, aw - 1), max(0, ah - 1)), (0, max(0, ah - 1))))
     dst = np.float32(tuple((x * box.width, y * box.height) for x, y in points))
     matrix = cv2.getPerspectiveTransform(src, dst)
+    # Warp premultiplied RGBA. Interpolating ordinary RGBA against a transparent
+    # black border produces dark seams around transformed artwork. Premultiplied
+    # colour preserves the real artwork colour in partially transparent pixels.
+    premultiplied = source.copy()
+    premultiplied[:, :, :3] *= premultiplied[:, :, 3:4] / 255.0
     warped = cv2.warpPerspective(
-        source, matrix, (max(1, box.width), max(1, box.height)),
+        premultiplied, matrix, (max(1, box.width), max(1, box.height)),
         flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_CONSTANT,
-        borderValue=(0, 0, 0, 0),
+        borderValue=(0.0, 0.0, 0.0, 0.0),
     )
-    canvas = Image.fromarray(warped, mode="RGBA")
+    alpha = np.clip(warped[:, :, 3:4], 0.0, 255.0)
+    rgb = np.zeros_like(warped[:, :, :3])
+    np.divide(warped[:, :, :3] * 255.0, alpha, out=rgb, where=alpha > 1e-4)
+    straight_rgba = np.concatenate((np.clip(rgb, 0.0, 255.0), alpha), axis=2)
+    canvas = Image.fromarray(np.rint(straight_rgba).astype(np.uint8), mode="RGBA")
     base.alpha_composite(canvas, (box.x, box.y))
     return True
 
@@ -424,7 +433,17 @@ def _render_item_internal(
             # it is NOT allowed to change the selected production template.
             record = get_active_template(item.selected_layout)
 
-    template = _load_rgba(record.template_image)
+    template_layer = _load_rgba(record.template_image)
+    artwork_under_template = bool(getattr(record, "artwork_under_template", False))
+    # Foreground-frame templates already contain the complete background,
+    # border, paint splashes, palette and brush.  Start with a clear canvas so
+    # the artwork can be placed first, then restore the full PNG above it.  Its
+    # alpha-zero opening is the exact mask through which the artwork is shown.
+    template = (
+        Image.new("RGBA", template_layer.size, (0, 0, 0, 0))
+        if artwork_under_template
+        else template_layer
+    )
     mode = item.artwork_fit_override or record.artwork_fit_mode
     if manual_warp and mode == "Smart":
         # Wrapped output already has the exact frame ratio; preserve all of it.
@@ -440,6 +459,8 @@ def _render_item_internal(
         rotation=0,
         transform_quad=getattr(item, "artwork_transform", None),
     )
+    if artwork_under_template:
+        template.alpha_composite(template_layer)
     if record.overlay_image and record.overlay_image.exists():
         overlay = _load_rgba(record.overlay_image)
         template.alpha_composite(overlay)

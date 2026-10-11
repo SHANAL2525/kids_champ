@@ -29,10 +29,20 @@ def classify_layout(width: int, height: int) -> str:
     width = max(1, int(width))
     height = max(1, int(height))
     ratio = width / float(height)
-    # Auto V4 routes from the cleaned artwork, not the phone-photo canvas.  The
-    # wider square band follows the production rule agreed for KidsChamp and
-    # avoids treating mildly rectangular drawings as portrait/landscape.
+    # Processed artwork/content keeps the established production Square band.
+    # Raw upload routing uses the narrower helper below so mildly rectangular
+    # camera files still select Portrait/Landscape reliably.
     if 0.83 <= ratio <= 1.20:
+        return "Square"
+    return "Portrait" if height > width else "Landscape"
+
+
+def classify_upload_layout(width: int, height: int) -> str:
+    """Classify the uploaded canvas by size with a narrow Square tolerance."""
+    width = max(1, int(width))
+    height = max(1, int(height))
+    ratio = width / float(height)
+    if 0.94 <= ratio <= 1.06:
         return "Square"
     return "Portrait" if height > width else "Landscape"
 
@@ -119,14 +129,17 @@ def detect_routing_layout(image: Image.Image) -> tuple[str, dict]:
     are only the final fallback.  The uploaded source is never modified.
     """
     original = ImageOps.exif_transpose(image).convert("RGBA")
-    raw_layout = classify_layout(original.width, original.height)
+    raw_layout = classify_upload_layout(original.width, original.height)
     raw_ratio = original.width / float(max(1, original.height))
-    raw_confidence = 0.72 if raw_layout == "Square" else min(0.96, 0.72 + abs(raw_ratio - 1.0) * 0.30)
-    candidates = [{"layout": raw_layout, "source": "raw", "confidence": raw_confidence}]
+    raw_confidence = 0.72 if raw_layout == "Square" else min(0.99, 0.86 + abs(raw_ratio - 1.0) * 0.15)
+    candidates = [{"layout": raw_layout, "source": "size", "confidence": raw_confidence}]
     best = candidates[0]
     geometry_info: dict = {}
 
-    if cv2 is not None and np is not None:
+    # Clear Portrait/Landscape dimensions are authoritative. Content/page
+    # analysis is reserved for near-square camera canvases where size alone is
+    # genuinely ambiguous.
+    if raw_layout == "Square" and cv2 is not None and np is not None:
         try:
             proxy, _ = _bounded_copy(original, 900)
             cleaned, geometry_info = auto_detect_document(proxy, max_detect_side=900)
@@ -139,7 +152,6 @@ def detect_routing_layout(image: Image.Image) -> tuple[str, dict]:
                     "confidence": min(0.995, max(0.74, content_confidence)),
                 }
                 candidates.append(candidate)
-                best = candidate
             elif geometry_info.get("page_layout"):
                 page_confidence = float(geometry_info.get("page_confidence", geometry_info.get("confidence", 0.0)))
                 if page_confidence >= 0.66:
@@ -149,7 +161,6 @@ def detect_routing_layout(image: Image.Image) -> tuple[str, dict]:
                         "confidence": min(0.97, max(0.70, page_confidence)),
                     }
                     candidates.append(candidate)
-                    best = candidate
             elif geometry_info.get("detected"):
                 candidate = {
                     "layout": classify_layout(cleaned.width, cleaned.height),
@@ -157,9 +168,10 @@ def detect_routing_layout(image: Image.Image) -> tuple[str, dict]:
                     "confidence": 0.74,
                 }
                 candidates.append(candidate)
-                best = candidate
         except Exception as exc:
             geometry_info = {"routing_error": str(exc)}
+
+    best = max(candidates, key=lambda candidate: float(candidate["confidence"]))
 
     confidence = float(best["confidence"])
     info = {

@@ -48,6 +48,11 @@ class TemplateRecord:
     artwork_fit_mode: str = "Fit Full Artwork"
     is_default: bool = False
     locked: bool = False
+    # Some production PNGs are complete foreground frames with a transparent
+    # artwork opening.  For those templates the student artwork must be placed
+    # first, then the PNG must be composited above it so corner decorations and
+    # frame edges can never be covered by the artwork.
+    artwork_under_template: bool = False
 
 
 @dataclass
