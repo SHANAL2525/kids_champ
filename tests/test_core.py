@@ -15,7 +15,7 @@ from app.config import MAX_BATCH_IMAGES
 from app.filename_parser import parse_filename, safe_name
 from app.image_processing import apply_color_stage, auto_detect_document, classify_layout, detect_routing_layout
 from app.image_renderer import default_transform_quad, normalize_transform_quad, place_artwork, render_item
-from app.models import BatchItem, Box
+from app.models import BatchItem, Box, TemplateRecord
 from app.settings_store import load_settings, save_settings
 from app.template_store import (
     create_custom_template, get_active_template, get_active_template_keys,
@@ -48,6 +48,20 @@ class AutoV4Tests(unittest.TestCase):
         self.assertEqual(classify_layout(1000, 1000), "Square")
         self.assertEqual(classify_layout(700, 1000), "Portrait")
         self.assertEqual(classify_layout(1200, 700), "Landscape")
+
+    def test_clear_upload_size_is_authoritative_for_auto_route(self):
+        image = Image.new("RGB", (1200, 700), (35, 40, 45))
+        draw = ImageDraw.Draw(image)
+        draw.rectangle((470, 40, 730, 660), fill=(245, 242, 235))
+        layout, info = detect_routing_layout(image)
+        self.assertEqual(layout, "Landscape")
+        self.assertEqual(info["source"], "size")
+        self.assertGreaterEqual(info["confidence"], 0.86)
+
+        portrait, _ = detect_routing_layout(Image.new("RGB", (900, 1000), "white"))
+        landscape, _ = detect_routing_layout(Image.new("RGB", (1100, 1000), "white"))
+        self.assertEqual(portrait, "Portrait")
+        self.assertEqual(landscape, "Landscape")
 
     def test_rotating_artwork_does_not_change_auto_template(self):
         item = BatchItem(
@@ -151,6 +165,39 @@ class TransparencyTests(unittest.TestCase):
                 self.assertEqual(output.getpixel(point)[3], 0, layout)
                 self.assertEqual(output.getpixel(art_point)[3], 255, layout)
 
+    def test_foreground_template_keeps_corner_decorations_above_artwork(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            template_path = root / "template.png"
+            artwork_path = root / "artwork.png"
+
+            foreground = Image.new("RGBA", (100, 100), (35, 80, 180, 255))
+            draw = ImageDraw.Draw(foreground)
+            draw.rectangle((20, 20, 79, 79), fill=(0, 0, 0, 0))
+            draw.rectangle((20, 20, 32, 32), fill=(240, 40, 80, 255))
+            foreground.save(template_path)
+            Image.new("RGBA", (40, 40), (20, 190, 70, 255)).save(artwork_path)
+
+            record = TemplateRecord(
+                key="foreground-frame", folder=root, json_path=root / "template.json",
+                name="Foreground Frame", template_type="Portrait", group="Tests",
+                group_color="Blue", template_image=template_path, overlay_image=None,
+                thumbnail_image=None, artwork_box=Box(20, 20, 60, 60),
+                name_box=Box(0, 90, 10, 5), city_box=Box(0, 95, 10, 5),
+                show_location_pin=False, artwork_fit_mode="Smart",
+                artwork_under_template=True,
+            )
+            item = BatchItem(
+                source_path=artwork_path, filename=artwork_path.name,
+                submission_id="", child_name="", city="", detected_layout="Portrait",
+                template_mode="Portrait", auto_paper_detect=False,
+            )
+
+            output = render_item(item, record)
+            self.assertEqual(output.getpixel((50, 50)), (20, 190, 70, 255))
+            self.assertEqual(output.getpixel((25, 25)), (240, 40, 80, 255))
+            self.assertEqual(output.getpixel((5, 5)), (35, 80, 180, 255))
+
     def test_new_portrait_landscape_frames_cover_artwork_and_keep_text_card_opaque(self):
         with tempfile.TemporaryDirectory() as folder:
             artwork = Path(folder) / "TEST1__MADUSHA METHMINI__MEDAWACHCHIYA.png"
@@ -220,6 +267,21 @@ class TransparencyTests(unittest.TestCase):
         self.assertEqual(base.getpixel((19, 80))[3], 0)
         self.assertGreater(base.getpixel((45, 80))[0], base.getpixel((45, 80))[2])
         self.assertGreater(base.getpixel((190, 80))[2], base.getpixel((190, 80))[0])
+
+    def test_free_transform_has_no_transparent_black_edge_fringe(self):
+        base = Image.new("RGBA", (240, 160), (0, 0, 0, 0))
+        artwork = Image.new("RGBA", (100, 100), (255, 255, 255, 255))
+        box = Box(20, 20, 200, 120)
+        quad = ((0.08, 0.08), (0.92, 0.03), (0.96, 0.94), (0.04, 0.90))
+        place_artwork(base, artwork, box, "Smart", transform_quad=quad)
+        edge_pixels = [
+            base.getpixel((x, y))
+            for y in range(base.height)
+            for x in range(base.width)
+            if 0 < base.getpixel((x, y))[3] < 255
+        ]
+        self.assertTrue(edge_pixels)
+        self.assertGreaterEqual(min(min(pixel[:3]) for pixel in edge_pixels), 245)
 
     def test_free_transform_rejects_collapsed_or_unsafe_quad(self):
         self.assertIsNone(normalize_transform_quad(((0, 0), (0, 0), (0, 0), (0, 0))))

@@ -177,7 +177,7 @@ class ComparePage(QWidget):
         self.auto_route_label.setObjectName("Muted")
         head.addWidget(self.auto_route_label)
         head.addStretch(1)
-        self.preview_hint = QLabel("LEFT framed result • RIGHT original/source editing • live update")
+        self.preview_hint = QLabel("LEFT framed result • P=Portrait • L=Landscape • RIGHT source editing")
         self.preview_hint.setObjectName("Muted")
         head.addWidget(self.preview_hint)
         ll.addLayout(head)
@@ -417,6 +417,14 @@ class ComparePage(QWidget):
         self.crop_shortcut.activated.connect(lambda: self._tool_shortcut(self.activate_crop))
         self.wrap_shortcut = QShortcut(QKeySequence("W"), self)
         self.wrap_shortcut.activated.connect(lambda: self._tool_shortcut(self.activate_warp))
+        self.portrait_shortcut = QShortcut(QKeySequence("P"), self)
+        self.portrait_upper_shortcut = QShortcut(QKeySequence("Shift+P"), self)
+        self.landscape_shortcut = QShortcut(QKeySequence("L"), self)
+        self.landscape_upper_shortcut = QShortcut(QKeySequence("Shift+L"), self)
+        for shortcut in (self.portrait_shortcut, self.portrait_upper_shortcut):
+            shortcut.activated.connect(lambda: self._template_shortcut("Portrait"))
+        for shortcut in (self.landscape_shortcut, self.landscape_upper_shortcut):
+            shortcut.activated.connect(lambda: self._template_shortcut("Landscape"))
         self.zoom_in_shortcut = QShortcut(QKeySequence("+"), self)
         self.zoom_in_shortcut.activated.connect(lambda: self.change_zoom(1.1))
         self.zoom_out_shortcut = QShortcut(QKeySequence("-"), self)
@@ -474,6 +482,13 @@ class ComparePage(QWidget):
         # Single-letter tool shortcuts must never steal student metadata text.
         if self.current_index >= 0 and not self._text_input_has_focus():
             callback()
+
+    def _template_shortcut(self, mode):
+        # P/L stay available throughout direct editing, but never consume a
+        # letter while the admin is typing ID, name, city, or another text value.
+        if self.current_index >= 0 and not self._text_input_has_focus():
+            self.quick_template(mode)
+            self.status.emit(f"Template: {mode} ({mode[0]})")
 
     def _save_from_shortcut(self):
         if self.current_index >= 0 and self.editing:
